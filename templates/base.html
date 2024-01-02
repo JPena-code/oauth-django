@@ -10,7 +10,19 @@
             h1 {
                 background: #eee;
             }
+
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            {% block csss_content %}
+            {% endblock csss_content %}
         </style>
+        <script>
+            {% block javascript %}
+            {% endblock javascript %}
+        </script>
     </head>
     <body>
         <header>

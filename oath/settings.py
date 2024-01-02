@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import dotenv_values
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Env variables retrieved from a .env file
+ENV_VARS = dotenv_values(BASE_DIR.joinpath('.local.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z0a2$5+yli63o-n&z=e0sgf_$j^f@myj8t$*preeqo1*7@+0ux'
+SECRET_KEY = ENV_VARS['SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Installed app
+    'app',
 ]
 
 MIDDLEWARE = [
