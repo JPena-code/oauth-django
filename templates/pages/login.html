@@ -33,9 +33,10 @@
 
 {% block content %}
     <section>
+        {% comment %} TODO Description {% endcomment %}
         {% lorem 1 p random %}
     </section>
-    <form method="post" action="/login/">
+    <form method="post" action="{% url "app.login" %}">
         {% csrf_token %}
         <button class="container button btn" type="submit">
             <svg viewBox="0 0 256 250" width="40" height="40" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">

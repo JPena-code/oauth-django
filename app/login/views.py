@@ -5,11 +5,13 @@ from oauthlib.oauth2 import WebApplicationClient
 
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import login, logout
 from django.views.generic import TemplateView
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, Http404
 
 from oath import settings
-
+from .models import AppUser
 
 class Login(TemplateView):
     template_name = 'pages/login.html'
@@ -18,7 +20,7 @@ class Login(TemplateView):
         client_id = settings.ENV_VARS['CLIENT_ID']
         client = WebApplicationClient(client_id)
 
-        request.session['X-STATE'] = secrets.token_urlsafe(16)
+        self.request.session['X-STATE'] = secrets.token_urlsafe(16)
 
         url = client.prepare_request_uri(
             'https://github.com/login/oauth/authorize',
@@ -34,17 +36,19 @@ class Login(TemplateView):
 class CallbackOAUTH(TemplateView):
 
     def get(self, request: HttpRequest, *args, **kwargs):
-        request_data = self.request.GET
-        if request_data.get('X-STATE', None) != self.request.session['X-STATE']:
+        request_data = request.GET
+        if request_data.get('error', None):
+            return Http404()
+        
+        if  request_data.get('state', None) != self.request.session['X-STATE']:
             messages.add_message(
                 request,
                 messages.ERROR,
                 'State information mismatch!!!!')
-            return HttpResponseRedirect(reverse('login'))
+            return HttpResponseRedirect(reverse('app.login'))
         del self.request.session['X-STATE']
 
         app_client = WebApplicationClient(settings.ENV_VARS['CLIENT_ID'])
-
         token_body = app_client.prepare_request_body(
             code=request_data['code'],
             client_id=settings.ENV_VARS['CLIENT_ID'],
@@ -60,4 +64,18 @@ class CallbackOAUTH(TemplateView):
         response = requests.get('https://api.github.com/user', headers=header)
         user_info = response.json()
 
-        self.request.session['X-PROFILE'] = user_info
+        auth_user, created = User.objects.get_or_create(
+            username=user_info['login'],
+            defaults={
+                'is_superuser': False,
+                'email': user_info['email'],
+                'first_name': user_info['name']})
+        if created:
+            AppUser.objects.create(
+                auth_user=auth_user,
+                name=user_info['name'],
+                avatar_url=user_info['avatar_url'],
+                bio=user_info['bio'])
+        login(self.request, auth_user)
+
+        return HttpResponseRedirect(reverse('app.home'))

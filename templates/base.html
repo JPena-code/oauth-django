@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% load static %}
         <meta charset="utf-8">
+        <link rel="icon" href="{% static 'img/favicon.ico' %}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Basic Outh Login</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+        <script src="https://kit.fontawesome.com/17c2082d4f.js" crossorigin="anonymous"></script>
         <style>
-            h1 {
-                background: #eee;
+            body, h1, h2, h3, h4, h5, h6  {
+                font-family: Roboto, sans-serif;
+            }
+            .w3-sofia {
+                font-family: Sofia, cursive;
             }
 
             .container {
@@ -26,9 +37,25 @@
     </head>
     <body>
         <header>
-            <h1 style>This is the header of the page</h1>
+            <h1>This is the header of the page</h1>
         </header>
-        {% block content %}
-        {% endblock content %}
+        <div class="w3-container w3-responsive w3-text-theme">
+            {% if messages %}
+            <div class="w3-panel w3-pink w3-display-container">
+              <ul class="w3-ul">
+              {% for message in messages %}
+                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-medium w3-display-topright">&times;</span>
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <footer>
+            {% comment %} TODO {% endcomment %}
+        </footer>
     </body>
 </html>
