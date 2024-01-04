@@ -1,39 +1,34 @@
-{% extends "base.html" %}
+{% extends 'layouts/base.html' %}
+{% load static %}
 
-{% block csss_content %}
-    span {
-        display: block;
-        padding: 0 0 0 .5rem
-    }
+{% block content %}
 
-    .btn {
-        border: none;
-        padding: 8px 16px;
-        vertical-align: middle;
-        overflow: hidden;
-        text-decoration: none;
-        color: inherit;
-        background-color: inherit;
-        text-align: center;
-        cursor: pointer;
-        white-space: nowrap;
-    }
+  <!-- [ Main Content ] start -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Hello card</h5>
+        </div>
+        <div class="card-block">
+          <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
 
-    .button {
-        border-radius: 4px;
-        background-color: #2b3245;
-        color: #fff;
-    }
-
-    .container {
-        min-width: 2rem;
-        min-height: 2rem;
-    }
-{% endblock csss_content %}
+{% endblock content %}
+{% comment %} {% extends "layout/base-auth.html" %}
 
 {% block content %}
     <section>
-        {% comment %} TODO Description {% endcomment %}
+        {% comment %} TODO Description
         {% lorem 1 p random %}
     </section>
     <form method="post" action="{% url "app.login" %}">
@@ -45,4 +40,4 @@
             <span>Continue with GitHub</span>
         </button>
     </form>
-{% endblock content %}
+{% endblock content %} {% endcomment %}

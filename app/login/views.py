@@ -5,8 +5,8 @@ from oauthlib.oauth2 import WebApplicationClient
 
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
 from django.views.generic import TemplateView
 from django.http import HttpRequest, HttpResponseRedirect, Http404
 
@@ -39,7 +39,7 @@ class CallbackOAUTH(TemplateView):
         request_data = request.GET
         if request_data.get('error', None):
             return Http404()
-        
+
         if  request_data.get('state', None) != self.request.session['X-STATE']:
             messages.add_message(
                 request,
