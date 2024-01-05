@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+:root {
+    --bs-primary: #7C675F;
+    --bs-secondary: #9D9888;
+    --bs-light: #847F7C;
+    --bs-dark: #1F2526;
+    --bs-white: #F0F1EE;
+    --bs-gray-dark: #7C675F;
+}
+
+body {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}
