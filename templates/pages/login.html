@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+{% endblock extrastyle %}
+
+{% block content %}
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div id="loginContainer" class="m-5 m-sm-0 shadow w-100 bg-white text-center">
+            <div class="p-sm-5 p-3 pb-sm-0">
+                <h1 class="fw-bold fs-2 py-2 text-dark">Django Oauth</h1>
+                <p class="fw-medium">
+                    Login using your Github account to try their Oauth service.
+                </p>
+                <form class="d-flex justify-content-center align-items-center py-3" method="post" action="{% url "login:login" %}">
+                    {% csrf_token %}
+                    <button
+                        class="iconContainer bg-dark rounded-pill d-flex justify-content-center align-items-center mx-2"
+                        type="submit">
+                        <svg data-testid="geist-icon" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24" style="color: #F0F1EE">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+            <div class=" bg-secondary"></div>
+            <div id="bar" class=" d-flex justify-content-center align-items-center">
+                <div
+                    class="iconContainer border bg-light rounded-pill d-flex justify-content-center align-items-center">
+                    Or
+                </div>
+            </div>
+            <div class="p-sm-5 p-3 pt-sm-0">
+                <p class="fw-medium pt-3">
+                    Comming up other auth methods
+                </p>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}

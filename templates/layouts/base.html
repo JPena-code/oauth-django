@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load i18n static admin_list admin_modify %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="en">
+
+<head>
+  {% include 'includes/head.html' %}
+  {% block extrastyle %}{% endblock extrastyle %}
+  {% block extrahead %}{% endblock extrahead %}
+</head>
+<body>
+
+  <!-- [ Main Content ] start -->
+  <div class="container">
+    <div class="page-wrapper">
+      {% block content %}{% endblock content %}
+    </div>
+  </div>
+
+  {% include 'includes/scripts.html' %}
+  {% block extra_js %}{% endblock extra_js %}
+
+</body>
+</html>

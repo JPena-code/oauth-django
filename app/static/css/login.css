@@ -1,0 +1,44 @@
+#loginContainer {
+    max-width: 420px;
+    position: relative;
+    border-radius: 24px;
+}
+
+.iconHeight {
+    height: 34px;
+}
+
+.iconHeightBig {
+    height: 40px;
+}
+
+.iconContainer {
+    height: 42px;
+    width: 42px;
+}
+
+
+#bar::after,
+#bar::before {
+    position: absolute;
+    content: "";
+    height: 1px;
+    width: 160px;
+    background: #c0c0c0;
+}
+
+#bar::after {
+    left: 0px;
+}
+
+#bar::before {
+    right: 0;
+}
+
+@media screen and (max-width: 576px) {
+
+    #bar::after,
+    #bar::before {
+        width: 100px;
+    }
+}
