@@ -10,15 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
-from dotenv import dotenv_values
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Env variables retrieved from a .env file
-ENV_VARS = dotenv_values(BASE_DIR.joinpath('.local.env'))
+ENV_VARS = os.environ
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,11 +28,15 @@ ENV_VARS = dotenv_values(BASE_DIR.joinpath('.local.env'))
 SECRET_KEY = ENV_VARS['SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    os.environ['ALLOWED_HOST']
+]
 
-
+CSRF_TRUSTED_ORIGINS = [
+    f'https://{os.environ["ALLOWED_HOST"]}'
+]
 # Application definition
 
 INSTALLED_APPS = [
