@@ -11,26 +11,10 @@
 </head>
 <body>
 
-  {% block pre_loader %}
-    {% include 'includes/pre-loader.html' %}
-  {% endblock pre_loader %}
-{% comment %}
-  {% block header %}
-    {% include 'includes/navigation.html' %}
-  {% endblock header %} {% endcomment %}
-
   <!-- [ Main Content ] start -->
-  <div class="pcoded-main-container">
-    <div class="pcoded-wrapper">
-      <div class="pcoded-content">
-        <div class="pcoded-inner-content">
-          <div class="main-body">
-            <div class="page-wrapper">
-              {% block content %}{% endblock content %}
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="container">
+    <div class="page-wrapper">
+      {% block content %}{% endblock content %}
     </div>
   </div>
 

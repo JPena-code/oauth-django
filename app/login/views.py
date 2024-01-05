@@ -45,7 +45,7 @@ class CallbackOAUTH(TemplateView):
                 request,
                 messages.ERROR,
                 'State information mismatch!!!!')
-            return HttpResponseRedirect(reverse('app.login'))
+            return HttpResponseRedirect(reverse('login:login'))
         del self.request.session['X-STATE']
 
         app_client = WebApplicationClient(settings.ENV_VARS['CLIENT_ID'])
@@ -70,12 +70,12 @@ class CallbackOAUTH(TemplateView):
                 'is_superuser': False,
                 'email': user_info['email'],
                 'first_name': user_info['name']})
+        login(self.request, auth_user)
         if created:
             AppUser.objects.create(
                 auth_user=auth_user,
                 name=user_info['name'],
                 avatar_url=user_info['avatar_url'],
                 bio=user_info['bio'])
-        login(self.request, auth_user)
 
-        return HttpResponseRedirect(reverse('app.home'))
+        return HttpResponseRedirect(reverse('home:profile'))
